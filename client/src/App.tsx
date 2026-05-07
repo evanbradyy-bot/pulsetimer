@@ -4,13 +4,23 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import Home from "./pages/Home";
+import Timer from "@/pages/Timer";
+import AdvancedTimer from "@/pages/AdvancedTimer";
+import Stopwatch from "@/pages/Stopwatch";
+import SavedTimers from "@/pages/SavedTimers";
+import Presets from "@/pages/Presets";
+import Upgrade from "@/pages/Upgrade";
 
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
+      <Route path={"/timer"} component={Timer} />
+      <Route path={"/advanced"} component={AdvancedTimer} />
+      <Route path={"/stopwatch"} component={Stopwatch} />
+      <Route path={"/saved"} component={SavedTimers} />
+      <Route path={"/presets"} component={Presets} />
+      <Route path={"/upgrade"} component={Upgrade} />
+      <Route path={"/"} component={Timer} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
@@ -18,18 +28,10 @@ function Router() {
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
+      <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
           <Router />
